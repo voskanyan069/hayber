@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffdab5"
+    tools:context=".RegisterActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/reg_back"
+                android:layout_width="match_parent"
+                android:layout_height="280sp"
+                android:src="@drawable/personas_reunidas_despues_autoaislamiento"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:scaleType="fitCenter" />
+
+            <ImageView
+                android:id="@+id/reg_mail_img"
+                android:layout_width="50sp"
+                android:layout_height="50sp"
+                android:src="@drawable/mail"
+                android:layout_below="@id/reg_back"
+                android:layout_marginTop="50sp"
+                android:layout_marginLeft="20sp"
+                android:layout_alignParentLeft="true" />
+
+            <EditText
+                android:id="@+id/reg_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/reg_back"
+                android:layout_alignParentRight="true"
+                android:layout_alignLeft="@id/reg_mail_img"
+                android:background="@drawable/login_mail"
+                android:layout_marginTop="50sp"
+                android:layout_marginLeft="60sp"
+                android:layout_marginRight="20sp"
+                android:textSize="20sp"
+                android:hint="E-Mail"
+                android:inputType="textEmailAddress"
+                android:padding="12sp"
+                android:fontFamily="@font/freedoka"/>
+
+            <ImageView
+                android:id="@+id/reg_pass_img"
+                android:layout_width="50sp"
+                android:layout_height="50sp"
+                android:src="@drawable/password"
+                android:layout_below="@id/reg_mail_img"
+                android:layout_marginTop="20sp"
+                android:layout_marginLeft="20sp"
+                android:layout_alignParentLeft="true" />
+
+            <EditText
+                android:id="@+id/reg_pass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/reg_email"
+                android:layout_alignParentRight="true"
+                android:layout_alignLeft="@id/reg_pass_img"
+                android:background="@drawable/login_pp"
+                android:layout_marginTop="20sp"
+                android:layout_marginLeft="60sp"
+                android:layout_marginRight="20sp"
+                android:textSize="20sp"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:padding="12sp"
+                android:fontFamily="@font/freedoka"/>
+
+            <Button
+                android:id="@+id/reg_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="60sp"
+                android:layout_marginLeft="70sp"
+                android:layout_marginRight="70sp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/reg_pass"
+                android:text="Create Account"
+                android:fontFamily="@font/freedoka"
+                android:textSize="20sp"
+                android:textColor="@color/colorWhite"
+                android:background="@drawable/buttons" />
+
+            <TextView
+                android:id="@+id/already_have_an_account_link"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Already have an account ?"
+                android:layout_below="@id/reg_btn"
+                android:gravity="center"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:fontFamily="@font/freedoka"
+                android:textSize="15sp"
+                android:layout_marginTop="10sp"
+                android:layout_marginBottom="20sp" />
+
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>

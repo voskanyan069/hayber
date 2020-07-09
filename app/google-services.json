@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "255543638009",
+    "firebase_url": "https://hayber-64cf5.firebaseio.com",
+    "project_id": "hayber-64cf5",
+    "storage_bucket": "hayber-64cf5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:255543638009:android:78e41190bd0f14bbc16f28",
+        "android_client_info": {
+          "package_name": "am.hayber"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "255543638009-a1ebdldqvkle7msrof4s9jsnk1tou939.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "am.hayber",
+            "certificate_hash": "a1425c86f5d2dc36d99ec4217e9d0445bd548eb8"
+          }
+        },
+        {
+          "client_id": "255543638009-d8tfv2c55vlmrapve0ostdcb77c16h2n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCAUH5roxLxhESHXlv9_sRH-cLISdgAsQs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "255543638009-d8tfv2c55vlmrapve0ostdcb77c16h2n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

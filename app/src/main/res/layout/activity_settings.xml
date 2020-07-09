@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SettingsActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profile_image"
+                android:layout_width="250sp"
+                android:layout_height="250sp"
+                android:src="@drawable/profile_image"
+                app:civ_border_width="3sp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="40sp"
+                app:civ_border_color="@color/colorAccentRed"/>
+
+            <ImageView
+                android:id="@+id/username_img"
+                android:layout_width="45sp"
+                android:layout_height="45sp"
+                android:layout_below="@id/profile_image"
+                android:layout_marginTop="20sp"
+                android:layout_marginLeft="20sp"
+                android:src="@drawable/edit_profile" />
+
+            <EditText
+                android:id="@+id/set_username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/profile_image"
+                android:layout_alignLeft="@id/username_img"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="20sp"
+                android:layout_marginLeft="60sp"
+                android:layout_marginRight="20sp"
+                android:background="@drawable/login_mail"
+                android:padding="10sp"
+                android:hint="USERNAME"
+                android:fontFamily="@font/freedoka"
+                android:inputType="text"
+                android:textColor="#be63f9"
+                android:textAlignment="center"
+                android:gravity="center_horizontal"
+                android:textSize="20sp" />
+
+            <ImageView
+                android:id="@+id/status_img"
+                android:layout_width="45sp"
+                android:layout_height="45sp"
+                android:layout_below="@id/username_img"
+                android:layout_marginTop="20sp"
+                android:layout_marginLeft="20sp"
+                android:src="@drawable/edit_status" />
+
+            <EditText
+                android:id="@+id/set_profile_status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/set_username"
+                android:layout_alignLeft="@id/status_img"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="20sp"
+                android:layout_marginLeft="60sp"
+                android:layout_marginRight="20sp"
+                android:background="@drawable/login_pp"
+                android:padding="10sp"
+                android:hint="STATUS"
+                android:text="Hi everyone !!!"
+                android:fontFamily="@font/freedoka"
+                android:inputType="textMultiLine"
+                android:textColor="#ffd200"
+                android:textAlignment="center"
+                android:gravity="center_horizontal"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/update_settings_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="UPDATE"
+                android:paddingTop="20sp"
+                android:paddingBottom="20sp"
+                android:paddingLeft="40sp"
+                android:paddingRight="40sp"
+                android:background="@drawable/buttons"
+                android:layout_below="@id/set_profile_status"
+                android:layout_marginTop="40sp"
+                android:layout_marginBottom="20sp"
+                android:fontFamily="@font/freedoka"
+                android:textSize="20sp"
+                android:textColor="@color/colorWhite"
+                android:layout_centerHorizontal="true" />
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>
