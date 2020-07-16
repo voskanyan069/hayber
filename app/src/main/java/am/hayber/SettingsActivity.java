@@ -136,7 +136,7 @@ public class SettingsActivity extends AppCompatActivity {
                             Toast.makeText(SettingsActivity.this, "Profile Image uploaded successfully", Toast.LENGTH_SHORT).show();
 
                             Task<Uri> urlTask = task.getResult().getStorage().getDownloadUrl();
-//                            while (!urlTask.isSuccessful());
+                            while (!urlTask.isSuccessful());
                             downloadUrl = urlTask.getResult().toString();
 
                             currentUserImageRef

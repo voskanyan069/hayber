@@ -4,4 +4,9 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="user_status">userstatus</string>
     <string name="username">username</string>
+    <string name="send_message">Send message</string>
+    <string name="cancel_chat_request">Cancel Chat Request</string>
+    <string name="cancel_message_request">Cancel Message Request</string>
+    <string name="accept_chat_request">Accept Chat Request</string>
+    <string name="remove_this_contact">Remove this Contact</string>
 </resources>
