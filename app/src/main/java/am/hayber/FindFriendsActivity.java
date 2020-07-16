@@ -20,8 +20,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
-import java.security.Provider;
-
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class FindFriendsActivity extends AppCompatActivity {
@@ -100,9 +98,9 @@ public class FindFriendsActivity extends AppCompatActivity {
         public FindFriendsViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            userName = itemView.findViewById(R.id.friend_username);
-            userStatus = itemView.findViewById(R.id.friend_status);
-            profileImage = itemView.findViewById(R.id.friend_img);
+            userName = itemView.findViewById(R.id.other_user_name);
+            userStatus = itemView.findViewById(R.id.other_user_status);
+            profileImage = itemView.findViewById(R.id.other_user_profile_image);
         }
     }
 }

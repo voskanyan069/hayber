@@ -14,7 +14,7 @@
         tools:ignore="UselessParent">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/friend_img"
+            android:id="@+id/other_user_profile_image"
             android:layout_width="80sp"
             android:layout_height="80sp"
             android:src="@drawable/profile_image" />
@@ -32,7 +32,7 @@
                 tools:ignore="UselessParent">
 
                 <TextView
-                    android:id="@+id/friend_username"
+                    android:id="@+id/other_user_name"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="@string/username"
@@ -41,7 +41,7 @@
                     android:textColor="@color/colorAccentYellow" />
 
                 <TextView
-                    android:id="@+id/friend_status"
+                    android:id="@+id/other_user_status"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/user_status"
