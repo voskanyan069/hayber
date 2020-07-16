@@ -33,7 +33,7 @@ public class GroupsFragment extends Fragment {
     private ArrayAdapter<String> arrayAdapter;
     private ArrayList<String> listOfGroups = new ArrayList<>();
 
-    private DatabaseReference groupRef;
+    private final DatabaseReference groupRef = FirebaseDatabase.getInstance().getReference().child("Groups");
 
     public GroupsFragment() {
         // Required empty public constructor
@@ -52,10 +52,8 @@ public class GroupsFragment extends Fragment {
     }
 
     private void init() {
-        groupRef = FirebaseDatabase.getInstance().getReference().child("Groups");
-
         groupsList = groupsFragmentView.findViewById(R.id.groups_list);
-        arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, listOfGroups);
+        arrayAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, listOfGroups);
         groupsList.setAdapter(arrayAdapter);
 
         listClick();
@@ -79,10 +77,9 @@ public class GroupsFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Set<String> set = new HashSet<>();
-                Iterator iterator = dataSnapshot.getChildren().iterator();
 
-                while (iterator.hasNext()) {
-                    set.add(((DataSnapshot)iterator.next()).getKey());
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    set.add(snapshot.getKey());
                 }
 
                 listOfGroups.clear();

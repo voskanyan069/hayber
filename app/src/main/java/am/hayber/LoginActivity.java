@@ -22,7 +22,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private FirebaseAuth mAuth;
+    private final FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     private Button logInBtn;
     private Button phoneLogInBtn;
@@ -49,8 +49,6 @@ public class LoginActivity extends AppCompatActivity {
         userPass = findViewById(R.id.login_pass);
         needNewAccount = findViewById(R.id.need_new_account_link);
         forgetPass = findViewById(R.id.forget_password_link);
-
-        mAuth = FirebaseAuth.getInstance();
 
         loadingBar = new ProgressDialog(this);
     }

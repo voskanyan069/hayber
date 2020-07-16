@@ -27,8 +27,9 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText userPass;
     private TextView alreadyHaveAnAccount;
 
-    private FirebaseAuth mAuth;
-    private DatabaseReference rootRef;
+    private final FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private final FirebaseDatabase root = FirebaseDatabase.getInstance();
+    private final DatabaseReference userRef = root.getReference().child("Users");
 
     private ProgressDialog loadingBar;
 
@@ -46,9 +47,6 @@ public class RegisterActivity extends AppCompatActivity {
         userEmail = findViewById(R.id.reg_email);
         userPass = findViewById(R.id.reg_pass);
         alreadyHaveAnAccount = findViewById(R.id.already_have_an_account_link);
-
-        mAuth = FirebaseAuth.getInstance();
-        rootRef = FirebaseDatabase.getInstance().getReference();
 
         loadingBar = new ProgressDialog(this);
     }
@@ -90,10 +88,10 @@ public class RegisterActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 String currentUserID = mAuth.getCurrentUser().getUid();
-                                rootRef.child("Users").child(currentUserID).setValue("");
+                                userRef.child(currentUserID).setValue("");
 
                                 sendUserToMainActivity();
-                                Toast.makeText(RegisterActivity.this, "Account created successfuly", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(RegisterActivity.this, "Account created successfully", Toast.LENGTH_SHORT).show();
                                 loadingBar.dismiss();
                             } else {
                                 String errMessage = task.getException().toString();

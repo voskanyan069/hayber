@@ -36,17 +36,23 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class SettingsActivity extends AppCompatActivity {
 
-    private String currentUserID;
-    private FirebaseAuth mAuth;
-    private DatabaseReference rootRef;
-    private StorageReference usersProfileImagesRef;
+    private final FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private final String currentUserID = mAuth.getCurrentUser().getUid();
+
+    private final FirebaseDatabase root = FirebaseDatabase.getInstance();
+    private final DatabaseReference userRef = root.getReference().child("Users");
+    private final DatabaseReference currentUserRef = userRef.child(currentUserID);
+    private final DatabaseReference currentUserImageRef = currentUserRef.child("image");
+
+    private final FirebaseStorage mStorage = FirebaseStorage.getInstance();
+    private final StorageReference usersProfileImagesRef = mStorage.getReference().child("Profile Images");
 
     private Button updateAccountSettings;
     private EditText userName;
     private ImageView userNameImg;
     private EditText userStatus;
-
     private CircleImageView userProfileImage;
+
     private static final int galleryCount = 1;
 
     private ProgressDialog loadingBar;
@@ -62,11 +68,6 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private void init() {
-        mAuth = FirebaseAuth.getInstance();
-        rootRef = FirebaseDatabase.getInstance().getReference();
-        usersProfileImagesRef = FirebaseStorage.getInstance().getReference().child("Profile Images");
-        currentUserID = mAuth.getCurrentUser().getUid();
-
         updateAccountSettings = findViewById(R.id.update_settings_button);
         userName = findViewById(R.id.set_username);
         userStatus = findViewById(R.id.set_profile_status);
@@ -135,10 +136,10 @@ public class SettingsActivity extends AppCompatActivity {
                             Toast.makeText(SettingsActivity.this, "Profile Image uploaded successfully", Toast.LENGTH_SHORT).show();
 
                             Task<Uri> urlTask = task.getResult().getStorage().getDownloadUrl();
-                            while (!urlTask.isSuccessful());
+//                            while (!urlTask.isSuccessful());
                             downloadUrl = urlTask.getResult().toString();
 
-                            rootRef.child("Users").child(currentUserID).child("image")
+                            currentUserImageRef
                                     .setValue(downloadUrl)
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
@@ -165,7 +166,7 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private void updateSettings() {
-        rootRef.child("Users").child(currentUserID)
+        currentUserRef
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -186,7 +187,8 @@ public class SettingsActivity extends AppCompatActivity {
                                 profileMap.put("name", setUsername);
                                 profileMap.put("status", setStatus);
 
-                                rootRef.child("Users").child(currentUserID).setValue(profileMap)
+                                currentUserRef
+                                        .setValue(profileMap)
                                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {
@@ -211,7 +213,7 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private void retrieveUserInfo() {
-        rootRef.child("Users").child(currentUserID)
+        currentUserRef
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

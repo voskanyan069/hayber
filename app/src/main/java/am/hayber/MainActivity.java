@@ -34,9 +34,14 @@ public class MainActivity extends AppCompatActivity {
     private TabLayout myTabLayout;
     private TabsAccessorAdapter myTabsAccessorAdapter;
 
-    private FirebaseUser currentUser;
-    private FirebaseAuth mAuth;
-    private DatabaseReference rootRef;
+    private final FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private final FirebaseUser currentUser = mAuth.getCurrentUser();
+    private final String currentUserID = currentUser.getUid();
+
+    private final FirebaseDatabase root = FirebaseDatabase.getInstance();
+    private final DatabaseReference userRef = root.getReference().child("Users");
+    private final DatabaseReference groupRef = root.getReference().child("Groups");
+    private final DatabaseReference currentUserRef = userRef.child(currentUserID);
 
     @Override
     protected void onStart() {
@@ -45,17 +50,15 @@ public class MainActivity extends AppCompatActivity {
         if (currentUser == null) {
             sendUserToLoginActivity();
         } else {
-            verifyUserExistance();
+            verifyUser();
         }
     }
 
-    private void verifyUserExistance() {
-        String currentUserID = mAuth.getCurrentUser().getUid();
-        rootRef.child("Users").child(currentUserID).addValueEventListener(new ValueEventListener() {
+    private void verifyUser() {
+        currentUserRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if ((dataSnapshot.child("name").exists())) {
-                } else {
+                if (!(dataSnapshot.child("name").exists())) {
                     sendUserToSettingsActivity();
                 }
             }
@@ -86,10 +89,6 @@ public class MainActivity extends AppCompatActivity {
 
         myTabLayout = findViewById(R.id.main_tabs);
         myTabLayout.setupWithViewPager(myViewPager);
-
-        mAuth = FirebaseAuth.getInstance();
-        currentUser = mAuth.getCurrentUser();
-        rootRef = FirebaseDatabase.getInstance().getReference();
     }
 
     @Override
@@ -158,12 +157,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void createNewGroup(final String groupName) {
-        rootRef.child("Groups").child(groupName).setValue("")
+        groupRef.child(groupName).setValue("")
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(MainActivity.this, groupName + " is created successfully", Toast.LENGTH_SHORT);
+                            Toast.makeText(MainActivity.this, groupName + " is created successfully", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

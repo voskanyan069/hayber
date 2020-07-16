@@ -29,7 +29,7 @@ import java.util.concurrent.TimeUnit;
 
 public class PhoneLoginActivity extends AppCompatActivity {
 
-    private FirebaseAuth mAuth;
+    private final FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks callbacks;
     private String mVerificationId;
@@ -56,8 +56,6 @@ public class PhoneLoginActivity extends AppCompatActivity {
     }
 
     private void init() {
-        mAuth = FirebaseAuth.getInstance();
-
         loadingBar = new ProgressDialog(this);
 
         phoneNumberInput = findViewById(R.id.phone_login_phone);

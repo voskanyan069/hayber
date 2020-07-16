@@ -31,8 +31,11 @@ import java.util.Iterator;
 
 public class GroupChatActivity extends AppCompatActivity {
 
-    private FirebaseAuth mAuth;
-    private DatabaseReference userRef;
+    private final FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private final String currentUserID = mAuth.getCurrentUser().getUid();
+
+    private final FirebaseDatabase root = FirebaseDatabase.getInstance();
+    private final DatabaseReference userRef = root.getReference().child("Users");
     private DatabaseReference groupNameRef;
     private DatabaseReference groupMessageKeyRef;
 
@@ -44,7 +47,6 @@ public class GroupChatActivity extends AppCompatActivity {
     private TextView displayTextMessages;
 
     private String currentGroupName;
-    private String currentUserID;
     private String currentUserName;
     private String currentDate;
     private String currentTime;
@@ -99,10 +101,7 @@ public class GroupChatActivity extends AppCompatActivity {
     private void init() {
         currentGroupName = getIntent().getExtras().get("groupName").toString();
 
-        mAuth = FirebaseAuth.getInstance();
-        currentUserID = mAuth.getCurrentUser().getUid();
-        userRef = FirebaseDatabase.getInstance().getReference().child("Users");
-        groupNameRef = FirebaseDatabase.getInstance().getReference().child("Groups").child(currentGroupName);
+        groupNameRef = root.getReference().child("Groups").child(currentGroupName);
 
         mToolbar = findViewById(R.id.group_chat_bar_layout);
         setSupportActionBar(mToolbar);
