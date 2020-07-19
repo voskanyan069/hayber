@@ -35,11 +35,11 @@ public class GroupChatActivity extends AppCompatActivity {
     private final String currentUserID = mAuth.getCurrentUser().getUid();
 
     private final FirebaseDatabase root = FirebaseDatabase.getInstance();
-    private final DatabaseReference userRef = root.getReference().child("Users");
-    private DatabaseReference groupNameRef;
+    private final DatabaseReference usersRef = root.getReference().child("Users");
+    private DatabaseReference groupsNameRef;
     private DatabaseReference groupMessageKeyRef;
 
-    private Toolbar mToolbar;
+    private Toolbar groupChatToolbar;
     private EditText userMessageInput;
     private ImageView sendMessageBtn;
 
@@ -65,7 +65,7 @@ public class GroupChatActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        groupNameRef.addChildEventListener(new ChildEventListener() {
+        groupsNameRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 if (dataSnapshot.exists()) {
@@ -101,10 +101,12 @@ public class GroupChatActivity extends AppCompatActivity {
     private void init() {
         currentGroupName = getIntent().getExtras().get("groupName").toString();
 
-        groupNameRef = root.getReference().child("Groups").child(currentGroupName);
+        groupsNameRef = root.getReference().child("Groups").child(currentGroupName);
 
-        mToolbar = findViewById(R.id.group_chat_bar_layout);
-        setSupportActionBar(mToolbar);
+        groupChatToolbar = findViewById(R.id.group_chat_bar_layout);
+        setSupportActionBar(groupChatToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowCustomEnabled(true);
         getSupportActionBar().setTitle(currentGroupName);
 
         mScrollView = findViewById(R.id.my_scroll_view);
@@ -116,7 +118,7 @@ public class GroupChatActivity extends AppCompatActivity {
     }
 
     private void getUserInfo() {
-        userRef.child(currentUserID).addValueEventListener(new ValueEventListener() {
+        usersRef.child(currentUserID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
@@ -157,7 +159,7 @@ public class GroupChatActivity extends AppCompatActivity {
 
     private void saveMessageIntoDB() {
         String message = userMessageInput.getText().toString();
-        String messageKey = groupNameRef.push().getKey();
+        String messageKey = groupsNameRef.push().getKey();
 
         if (!(TextUtils.isEmpty(message))) {
             Calendar calForDate = Calendar.getInstance();
@@ -169,9 +171,9 @@ public class GroupChatActivity extends AppCompatActivity {
             currentTime = currentTimeFormat.format(calForTime.getTime());
 
             HashMap<String, Object> groupMessageKey = new HashMap<>();
-            groupNameRef.updateChildren(groupMessageKey);
+            groupsNameRef.updateChildren(groupMessageKey);
 
-            groupMessageKeyRef = groupNameRef.child(messageKey);
+            groupMessageKeyRef = groupsNameRef.child(messageKey);
 
             HashMap<String, Object> messageInfoMap = new HashMap<>();
                 messageInfoMap.put("name", currentUserName);

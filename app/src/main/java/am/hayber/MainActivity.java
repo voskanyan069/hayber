@@ -29,27 +29,28 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
+    private final FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private String currentUserID;
+
+    private final FirebaseDatabase root = FirebaseDatabase.getInstance();
+    private final DatabaseReference usersRef = root.getReference().child("Users");
+    private final DatabaseReference groupsRef = root.getReference().child("Groups");
+    private DatabaseReference currentUserRef;
+
     private Toolbar mToolbar;
     private ViewPager myViewPager;
     private TabLayout myTabLayout;
     private TabsAccessorAdapter myTabsAccessorAdapter;
 
-    private final FirebaseAuth mAuth = FirebaseAuth.getInstance();
-    private final FirebaseUser currentUser = mAuth.getCurrentUser();
-    private final String currentUserID = currentUser.getUid();
-
-    private final FirebaseDatabase root = FirebaseDatabase.getInstance();
-    private final DatabaseReference userRef = root.getReference().child("Users");
-    private final DatabaseReference groupRef = root.getReference().child("Groups");
-    private final DatabaseReference currentUserRef = userRef.child(currentUserID);
-
     @Override
     protected void onStart() {
         super.onStart();
 
-        if (currentUser == null) {
+        if (mAuth.getCurrentUser() == null) {
             sendUserToLoginActivity();
         } else {
+            currentUserID = mAuth.getCurrentUser().getUid();
+            currentUserRef = usersRef.child(currentUserID);
             verifyUser();
         }
     }
@@ -157,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void createNewGroup(final String groupName) {
-        groupRef.child(groupName).setValue("")
+        groupsRef.child(groupName).setValue("")
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -177,8 +178,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void sendUserToSettingsActivity() {
         Intent settingsIntent = new Intent(MainActivity.this, SettingsActivity.class);
-        settingsIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(settingsIntent);
-        finish();
     }
 }

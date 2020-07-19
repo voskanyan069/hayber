@@ -31,10 +31,9 @@ public class ContactsFragment extends Fragment {
 
     private final FirebaseDatabase root = FirebaseDatabase.getInstance();
     private final DatabaseReference currentContactsRef = root.getReference().child("Contacts").child(currentUserID);
-    private final DatabaseReference userRef = root.getReference().child("Users");
+    private final DatabaseReference usersRef = root.getReference().child("Users");
 
     private View contactsView;
-
     private RecyclerView contactsList;
 
     public ContactsFragment() {}
@@ -68,7 +67,7 @@ public class ContactsFragment extends Fragment {
             protected void onBindViewHolder(@NonNull final ContactsViewHolder holder, int position, @NonNull Contacts model) {
                 String usersIDs = getRef(position).getKey();
 
-                userRef.child(usersIDs).addValueEventListener(new ValueEventListener() {
+                usersRef.child(usersIDs).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         String userName = dataSnapshot.child("name").getValue().toString();
@@ -112,9 +111,9 @@ public class ContactsFragment extends Fragment {
         public ContactsViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            userName = itemView.findViewById(R.id.other_user_name);
-            userStatus = itemView.findViewById(R.id.other_user_status);
-            userProfileImage = itemView.findViewById(R.id.other_user_profile_image);
+            userName = itemView.findViewById(R.id.display_user_name);
+            userStatus = itemView.findViewById(R.id.display_user_status);
+            userProfileImage = itemView.findViewById(R.id.display_user_profile_image);
         }
 
     }

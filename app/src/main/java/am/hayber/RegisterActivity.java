@@ -22,14 +22,14 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class RegisterActivity extends AppCompatActivity {
 
+    private final FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private final FirebaseDatabase root = FirebaseDatabase.getInstance();
+    private final DatabaseReference usersRef = root.getReference().child("Users");
+
     private Button createAccountBtn;
     private EditText userEmail;
     private EditText userPass;
     private TextView alreadyHaveAnAccount;
-
-    private final FirebaseAuth mAuth = FirebaseAuth.getInstance();
-    private final FirebaseDatabase root = FirebaseDatabase.getInstance();
-    private final DatabaseReference userRef = root.getReference().child("Users");
 
     private ProgressDialog loadingBar;
 
@@ -88,7 +88,7 @@ public class RegisterActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 String currentUserID = mAuth.getCurrentUser().getUid();
-                                userRef.child(currentUserID).setValue("");
+                                usersRef.child(currentUserID).setValue("");
 
                                 sendUserToMainActivity();
                                 Toast.makeText(RegisterActivity.this, "Account created successfully", Toast.LENGTH_SHORT).show();

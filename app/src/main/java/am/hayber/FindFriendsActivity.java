@@ -25,7 +25,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class FindFriendsActivity extends AppCompatActivity {
 
     private final FirebaseDatabase root = FirebaseDatabase.getInstance();
-    private final DatabaseReference userRef = root.getReference().child("Users");
+    private final DatabaseReference usersRef = root.getReference().child("Users");
 
     private Toolbar mToolbar;
     private RecyclerView findFriendsRecyclerList;
@@ -55,7 +55,7 @@ public class FindFriendsActivity extends AppCompatActivity {
         super.onStart();
 
         FirebaseRecyclerOptions<Contacts> options = new FirebaseRecyclerOptions.Builder<Contacts>()
-                .setQuery(userRef, Contacts.class)
+                .setQuery(usersRef, Contacts.class)
                 .build();
 
         FirebaseRecyclerAdapter<Contacts, FindFriendsViewHolder> adapter = new FirebaseRecyclerAdapter<Contacts, FindFriendsViewHolder>(options) {
@@ -98,9 +98,9 @@ public class FindFriendsActivity extends AppCompatActivity {
         public FindFriendsViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            userName = itemView.findViewById(R.id.other_user_name);
-            userStatus = itemView.findViewById(R.id.other_user_status);
-            profileImage = itemView.findViewById(R.id.other_user_profile_image);
+            userName = itemView.findViewById(R.id.display_user_name);
+            userStatus = itemView.findViewById(R.id.display_user_status);
+            profileImage = itemView.findViewById(R.id.display_user_profile_image);
         }
     }
 }

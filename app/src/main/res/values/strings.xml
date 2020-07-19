@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Hayber</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="user_status">userstatus</string>
     <string name="username">username</string>
@@ -9,4 +8,8 @@
     <string name="cancel_message_request">Cancel Message Request</string>
     <string name="accept_chat_request">Accept Chat Request</string>
     <string name="remove_this_contact">Remove this Contact</string>
+    <string name="accept">Accept</string>
+    <string name="cancel">Cancel</string>
+    <string name="you_send_the_request">You send the request</string>
+    <string name="type_message">Type message ...</string>
 </resources>

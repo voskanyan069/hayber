@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -12,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -23,7 +21,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 
 public class GroupsFragment extends Fragment {
@@ -33,11 +30,9 @@ public class GroupsFragment extends Fragment {
     private ArrayAdapter<String> arrayAdapter;
     private ArrayList<String> listOfGroups = new ArrayList<>();
 
-    private final DatabaseReference groupRef = FirebaseDatabase.getInstance().getReference().child("Groups");
+    private final DatabaseReference groupsRef = FirebaseDatabase.getInstance().getReference().child("Groups");
 
-    public GroupsFragment() {
-        // Required empty public constructor
-    }
+    public GroupsFragment() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -73,7 +68,7 @@ public class GroupsFragment extends Fragment {
     }
 
     private void retrieveAndDisplayGroups() {
-        groupRef.addValueEventListener(new ValueEventListener() {
+        groupsRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Set<String> set = new HashSet<>();
